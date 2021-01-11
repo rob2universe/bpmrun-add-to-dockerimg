@@ -3,6 +3,6 @@ COPY ./configuration ./configuration
 COPY ./configuration/keystore ./configuration/keystore
 COPY ./configuration/resources ./configuration/resources
 COPY ./configuration/sql ./configuration/sql
-COPY ./configuration/userlib ./configuration/userlib
+COPY ./configuration/userlib/*.* ./configuration/userlib
 COPY ./target/*.jar ./configuration/userlib
 
