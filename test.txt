@@ -1,0 +1,23 @@
+
+New-AzResourceGroup -Name rg1 -Location southeastasia
+
+$registry = New-AzContainerRegistry -ResourceGroupName "rg1" -Name "RobsACR" -EnableAdminUser -Sku Basic
+
+$creds = Get-AzContainerRegistryCredential -Registry $registry
+
+$creds = Get-AzContainerRegistryCredential -ResourceGroup rg1 -Name RobsACR
+
+
+mvn clean install -DacrId=RobsACR
+
+
+$secpasswd = ConvertTo-SecureString $creds.Password -AsPlainText 
+
+$acrcred = New-Object System.Management.Automation.PSCredential ($creds.Username, (ConvertTo-SecureString $creds.Password -AsPlainText -Force))
+
+New-AzContainerGroup -ResourceGroupName rg1 -Name bpmrun -Image RobsACR.azurecr.io/bpmrun-add-to-dockerimg:1.0 -RegistryServer robsacr.azurecr.io -DnsNameLabel bpmrun -Location EastUS -RegistryCredential $acrcred -OsType Linux -IpAddressType Public -Port @(8080) -Cpu 1 -MemoryInGB 0.5 -EnvironmentVariable @{"SPRING_APPLICATION_JSON"='{"camunda.bpm.run.auth.enabled":"true"}'}
+
+
+az container create --resource-group rg1 --name camunda-run --image camunda/camunda-bpm-platform:run-latest --dns-name-label robs-camunda --ports 8080 --protocol TCP --cpu 1 --memory 0.5 --environment-variables SPRING_APPLICATION_JSON='{"camunda.bpm.run.auth.enabled":"true"}'
+
+az container create --resource-group rg1 --name mybpmrun --image bpmrun-add-to-dockerimg:1.0 --dns-name-label robs-camunda --ports 8080 --protocol TCP --cpu 1 --memory 0.5 --environment-variables SPRING_APPLICATION_JSON='{"camunda.bpm.run.auth.enabled":"true"}' --registry-username=$creds.Username --registry-password=$creds.Password --registry-login-server=robsacr.azurecr.io
