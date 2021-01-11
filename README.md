@@ -22,7 +22,8 @@ The directory structure in folder [*configuration*](./configuration) maps to fol
    `cd ./bpmrun-add-to-dockerimg/`
 
 3. Simply run the script:   
-   `CreateImage.ps1`
+   `./CreateImage.ps1`  
+   and enter the requested parameters when prompted
 
 ## Alternative: Manual configuration in Azure console
 ### Manual Azure Preparation
