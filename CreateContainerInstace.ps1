@@ -8,10 +8,10 @@ If (!$acrName) {
     $acrName = Read-Host -Prompt 'What is the registry name?'
 }
 If (!$dnsName) {
-    $acrName = Read-Host -Prompt 'Which DNS name should be used for the unique container instance URL?'
+    $dnsName = Read-Host -Prompt 'Which DNS name should be used for the unique container instance URL?'
 }
 
-$creds = Get-AzContainerRegistryCredential -ResourceGroup $rgName -Name $containerName
+$creds = Get-AzContainerRegistryCredential -ResourceGroup $rgName -Name $acrName
 
 $acrcred = New-Object System.Management.Automation.PSCredential ($creds.Username, (ConvertTo-SecureString $creds.Password -AsPlainText -Force))
 
