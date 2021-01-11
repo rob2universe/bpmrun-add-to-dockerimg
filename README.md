@@ -3,6 +3,17 @@ Add user artefacts to Camunda BPM RUN docker image in a custom container image a
 
 The directory structure in folder [*configuration*](./configuration) maps to folder in container according to [Camunda BPM Run product documentation](https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/).
 
+
+## TL:DR
+1. From Azure Cloud Shell run:  
+`git clone https://github.com/rob2universe/bpmrun-add-to-dockerimg`  
+and  `cd ./bpmrun-add-to-dockerimg/`  
+2. Next create your own container registry and image by running:  
+`./CreateImage.ps1`  
+3. To create a container instance subsequently run:  
+`./CreateContainerInstace.ps1`  
+
+
 ## Local Usage
 
 ### Build the Docker image
