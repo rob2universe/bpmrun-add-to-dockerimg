@@ -1,10 +1,10 @@
 $rgName = Read-Host -Prompt 'Which resource group name should be use?'
-$location = Read-Host -Prompt 'Which Azure location should be used? (e.g. westus, eastus, brazilsouth, westeurope, northeurope, centralindia, westindia, southeastasia, japanwest, australiasoutheast)'
 $acrName = Read-Host -Prompt 'Azure container registry name to be used?'
 Write-Host "`n Creating container registry '$acrName' in location '$location' in resource group '$rgName'`n"
 
 $rgExists = az group exists -n $rgName
 if ($rgExists -eq 'false') {
+    $location = Read-Host -Prompt 'Which Azure location should be used? (e.g. westus, eastus, brazilsouth, westeurope, northeurope, centralindia, westindia, southeastasia, japanwest, australiasoutheast)'
     $resourceGroup = New-AzResourceGroup -Name $rgName -Location $location
     Write-Host "`n New resource group '$rgName' created in '$location'.`n"
 }
@@ -28,4 +28,4 @@ Write-Host "`n Getting credentails for registry '$acrName'."
 $creds = Get-AzContainerRegistryCredential -Registry $registry
 
 $Env:acrName = $acrName
-mvn clean install -P !Docker,Azure -Djdk.module.illegalAccess=deny
+.\mvnw clean install -P !Docker,Azure
