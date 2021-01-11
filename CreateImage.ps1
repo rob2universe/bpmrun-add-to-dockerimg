@@ -14,9 +14,7 @@ else {
 }
 Get-AzResourceGroup -Name $rgName
 
-$acrCheck = az acr check-name -n $acrName
-if ($acrCheck -like '*nameAvailable": true*') {$registryExists="false"} else {$registryExists="true"}
-if (!$registryExists) {
+if ((az acr check-name -n $acrName) -match '.nameAvailable": true.') {
     $registry = New-AzContainerRegistry  -EnableAdminUser -Sku Basic -ResourceGroupName $rgName -Name $acrName 
     Write-Host "`n New container registry '$acrName' created in resource group '$rgName'."
 }
