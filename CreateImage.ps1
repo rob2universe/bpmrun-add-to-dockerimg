@@ -1,4 +1,4 @@
-$rgName = Read-Host -Prompt 'Which resource group name should be use?'
+$rgName = Read-Host -Prompt 'Which resource group name should be used?'
 $acrName = Read-Host -Prompt 'Azure container registry name to be used?'
 Write-Host "`n Creating container registry '$acrName' in location '$location' in resource group '$rgName'`n"
 

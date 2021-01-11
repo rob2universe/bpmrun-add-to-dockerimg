@@ -54,13 +54,19 @@ The directory structure in folder [*configuration*](./configuration) maps to fol
 This will build your docker image and push it to your Azure container registy. Subsequently the image will be available under: **\<registry name>.azurecr.io/bpmrun-add-to-dockerimg:1.0**
 
 ## Creating an Azure container instance based on the published image
-Once the image has been published to your Azure cointainer registry you can use it to create Azure container instances, e.g. as described [here for Azure cloud shell](
+
+Once the image has been published to your Azure cointainer registry you can use it to create Azure container instances, e.g. **by running the included script**:  
+`./CreateContainerInstace.ps1`  
+or as described [here for Azure cloud shell](
 https://medium.com/@robert.emsbach/deploying-camunda-bpm-to-azure-container-service-via-cli-in-5-minutes-cab7fd14e50c) or [here for Azure portal](https://medium.com/@robert.emsbach/anyone-can-run-camunda-bpm-on-azure-in-10-minutes-4b4055cc8e9).
 
-Example (this is still work in progress):
+### Alternative: Manual containe rinstance creation
+Example:
 1. `$creds = Get-AzContainerRegistryCredential -ResourceGroup <resource group name> -Name <registry name>`  
 2. `$acrcred = New-Object System.Management.Automation.PSCredential ($creds.Username, (ConvertTo-SecureString $creds.Password -AsPlainText -Force))`
-3. `New-AzContainerGroup -ResourceGroupName <resource group name> -Name mybpmnrun -Image <registry name>.azurecr.io/bpmrun-add-to-dockerimg:1.0 -DnsNameLabel bpmrun -Location <location> -RegistryCredential $acrcred -OsType Linux -IpAddressType Public -Port @(8080) -Cpu 1 -MemoryInGB 0.5 -EnvironmentVariable @{SPRING_APPLICATION_JSON='{"camunda.bpm.run.auth.enabled":"true"}'}`
+3. `New-AzContainerGroup -ResourceGroupName <resource group name> -Name <container name> -Image <registry name>.azurecr.io/bpmrun-add-to-dockerimg:1.0 -DnsNameLabel <pick a unique name> -RegistryCredential $acrcred -OsType Linux -IpAddressType Public -Port @(8080) -Cpu 1 -MemoryInGB 0.5 -EnvironmentVariable @{"SPRING_APPLICATION_JSON"='{"camunda.bpm.run.auth.enabled":"true"}'}`
+
+
 
 ## Simple Test
 This project contains an [example process model](./configuration/resources/groovyprocess.bpmn) which, if successfully included in your custom container image, will be automatically deployed during startup. This process makes use of the newly included Groovy jars. Start a process via Camunda modeler or tasklist. If the process instances starts / completes without error then the Groovy script output will be visible in the container instances console log.
