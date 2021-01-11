@@ -24,7 +24,8 @@ else {
 }
 Get-AzContainerRegistry -ResourceGroupName $rgName -Name $acrName
 
+Write-Host "`n Getting credentails for registry '$acrName'."
 $creds = Get-AzContainerRegistryCredential -Registry $registry
 
 $Env:acrName = $acrName
-mvn clean install -P !Docker
+mvn clean install -P !Docker,Azure -Djdk.module.illegalAccess=deny
