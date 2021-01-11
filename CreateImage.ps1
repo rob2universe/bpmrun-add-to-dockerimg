@@ -6,14 +6,16 @@ Write-Host "`n Creating container registry '$acrName' in location '$location' in
 $rgExists = az group exists -n $rgName
 if ($rgExists -eq 'false') {
     $resourceGroup = New-AzResourceGroup -Name $rgName -Location $location
-    Write-Host "`n New resource group '$rgName' created in '$location'."
+    Write-Host "`n New resource group '$rgName' created in '$location'.`n"
 }
 else {
     $resourceGroup = Get-AzResourceGroup -Name $rgName
-    Write-Host "`n Using existing resource group '$rgName'."
+    Write-Host "`n Using existing resource group '$rgName'.`n"
 }
+Get-AzResourceGroup -Name $rgName
 
-$registryExists = az acr check-name -n $acrName
+$acrCheck = az acr check-name -n $acrName
+if ($acrCheck -like '*nameAvailable": true*') {$registryExists="false"} else {$registryExists="true"}
 if (!$registryExists) {
     $registry = New-AzContainerRegistry  -EnableAdminUser -Sku Basic -ResourceGroupName $rgName -Name $acrName 
     Write-Host "`n New container registry '$acrName' created in resource group '$rgName'."
