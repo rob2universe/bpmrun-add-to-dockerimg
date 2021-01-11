@@ -65,7 +65,7 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>3.0.0</version>
           <executions>
-            <execution>
+            <!-- <execution>
               <id>docker-rmi</id>
               <phase>clean</phase>
               <goals>
@@ -83,7 +83,7 @@
                   <successCode>1</successCode>
               </successCodes>
               </configuration>
-            </execution>
+            </execution> -->
             <execution>
               <id>az-docker-buildnpush</id>
               <phase>install</phase>
