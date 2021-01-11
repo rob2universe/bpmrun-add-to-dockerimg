@@ -1,8 +1,7 @@
 # bpmrun-add-to-dockerimg
 Add user artefacts to Camunda BPM RUN docker image in a custom container image and deploy it to a container registry.
 
-
-directory structure in folder [*configuration*](./configuration) maps to folder in container according to [Camunda BPM Run product documentation](https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/).
+The directory structure in folder [*configuration*](./configuration) maps to folder in container according to [Camunda BPM Run product documentation](https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/).
 
 ## Usage
 
