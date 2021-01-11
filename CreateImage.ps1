@@ -28,4 +28,4 @@ Write-Host "`n Getting credentails for registry '$acrName'."
 $creds = Get-AzContainerRegistryCredential -Registry $registry
 
 $Env:acrName = $acrName
-.\mvnw clean install -P !Docker,Azure
+mvn clean install -P !Docker,Azure
