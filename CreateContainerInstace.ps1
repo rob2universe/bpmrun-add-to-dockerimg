@@ -1,12 +1,7 @@
-If (!$rgName) {
-    $rgName = Read-Host -Prompt 'Which resource group name should be used?'
-}
-If (!$containerName) {
-    $containerName = Read-Host -Prompt 'Which name should be used for the container?'
-}
-If (!$acrName) {
-    $acrName = Read-Host -Prompt 'What is the registry name?'
-}
+$rgName = Read-Host -Prompt 'Which resource group name should be used?'
+$acrName = Read-Host -Prompt 'What is the registry name?'
+$containerName = Read-Host -Prompt 'Which name should be used for the container?'
+
 If (!$dnsName) {
     $dnsName = Read-Host -Prompt 'Which DNS name should be used for the unique container instance URL?'
 }
