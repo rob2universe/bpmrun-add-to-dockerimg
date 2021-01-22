@@ -71,7 +71,7 @@ Once the image has been published to your Azure cointainer registry you can use 
 or as described [here for Azure cloud shell](
 https://medium.com/@robert.emsbach/deploying-camunda-bpm-to-azure-container-service-via-cli-in-5-minutes-cab7fd14e50c) or [here for Azure portal](https://medium.com/@robert.emsbach/anyone-can-run-camunda-bpm-on-azure-in-10-minutes-4b4055cc8e9).
 
-### Alternative: Manual containe rinstance creation
+### Alternative: Manual container instance creation
 Example:
 1. `$creds = Get-AzContainerRegistryCredential -ResourceGroup <resource group name> -Name <registry name>`  
 2. `$acrcred = New-Object System.Management.Automation.PSCredential ($creds.Username, (ConvertTo-SecureString $creds.Password -AsPlainText -Force))`
