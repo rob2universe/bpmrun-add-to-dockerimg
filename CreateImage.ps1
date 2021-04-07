@@ -29,3 +29,7 @@ $creds = Get-AzContainerRegistryCredential -Registry $registry
 
 $Env:acrName = $acrName
 mvn clean install -P !Docker,Azure
+
+# to build locally and push the local image to ACR, first tag the image
+# docker tag org.camunda.bpm.example/bpmrun-add-to-dockerimg:1.0 robsacr.azurecr.io/bpmrun-add-to-dockerimg:1.0
+# docker push robsacr.azurecr.io/bpmrun-add-to-dockerimg:1.0
