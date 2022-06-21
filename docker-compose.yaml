@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  bpmnrun-custom:
+    container_name: bpmnrun-custom
+    image: org.camunda.bpm.example/bpmrun-add-to-dockerimg
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+     - logging.level.root=info
+    ports:
+      - "8080:8080"
